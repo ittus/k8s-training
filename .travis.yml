@@ -1,0 +1,10 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - cd udemy-docker-complete-guide/frontend/
+  - docker build -t ittus/k8s-training -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true ittus/k8s-training npm run test
