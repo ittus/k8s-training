@@ -8,3 +8,16 @@ before_install:
 
 script:
   - docker run -e CI=true ittus/k8s-training npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'ap-northeast-1'
+  name: 'docker-react'
+  env: 'DockerReact-env'
+  bucket_name: 'elasticbeanstalk-ap-northeast-1-825788240328'
+  bucket_path: 'docker-react'
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: '$AWS_SECRET_KEY'
