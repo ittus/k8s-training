@@ -3,21 +3,19 @@ services:
   - docker
 
 before_install:
-  - cd udemy-docker-complete-guide/frontend/
-  - docker build -t ittus/k8s-training -f Dockerfile.dev .
+  - cd udemy-docker-complete-guide/complex/
+  - docker build -t ittus/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true ittus/k8s-training npm run test
-# deploy:
-#   provider: elasticbeanstalk
-#   region: 'ap-northeast-1'
-#   name: 'docker-react'
-#   app: 'docker-react'
-#   env: 'DockerReact-env'
-#   bucket_name: 'elasticbeanstalk-ap-northeast-1-825788240328'
-#   bucket_path: 'docker-react'
-#   on:
-#     branch: master
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_access_key:
-#     secure: '$AWS_SECRET_KEY'
+  - docker run -e CI=true ittus/react-test npm run test
+
+after_success:
+  - docker build -t ittus/multi-client ./client
+  - docker build -t ittus/multi-nginx ./nginx
+  - docker build -t ittus/multi-server ./server
+  - docker build -t ittus/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push ittus/multi-client
+  - docker push ittus/multi-nginx
+  - docker push ittus/multi-server
+  - docker push ittus/multi-worker
