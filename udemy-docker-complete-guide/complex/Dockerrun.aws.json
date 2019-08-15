@@ -1,0 +1,33 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [{
+      "name": "client",
+      "image": "ittus/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "ittus/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "ittus/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "ittus/multi-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [{
+        "host": 80,
+        "containerPort": 80
+      }],
+      "links": ["client", "server"]
+    }
+  ]
+}
