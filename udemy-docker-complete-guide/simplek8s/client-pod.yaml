@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: client
-      image: ittus/multi-client
+      image: ittus/multi-worker
       ports:
         - containerPort: 3000
