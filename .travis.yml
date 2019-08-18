@@ -1,24 +1,24 @@
-sudo: required
-services:
-  - docker
+# sudo: required
+# services:
+#   - docker
 
-before_install:
-  - cd udemy-docker-complete-guide/complex/
-  - docker build -t ittus/react-test -f ./client/Dockerfile.dev ./client
+# before_install:
+#   - cd udemy-docker-complete-guide/complex/
+#   - docker build -t ittus/react-test -f ./client/Dockerfile.dev ./client
 
-script:
-  - docker run -e CI=true ittus/react-test npm run test
+# script:
+#   - docker run -e CI=true ittus/react-test npm run test
 
-after_success:
-  - docker build -t ittus/multi-client ./client
-  - docker build -t ittus/multi-nginx ./nginx
-  - docker build -t ittus/multi-server ./server
-  - docker build -t ittus/multi-worker ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push ittus/multi-client
-  - docker push ittus/multi-nginx
-  - docker push ittus/multi-server
-  - docker push ittus/multi-worker
+# after_success:
+#   - docker build -t ittus/multi-client ./client
+#   - docker build -t ittus/multi-nginx ./nginx
+#   - docker build -t ittus/multi-server ./server
+#   - docker build -t ittus/multi-worker ./worker
+#   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#   - docker push ittus/multi-client
+#   - docker push ittus/multi-nginx
+#   - docker push ittus/multi-server
+#   - docker push ittus/multi-worker
 # deploy:
 #   provider: elasticbeanstalk
 #   region: ap-northeast-1
