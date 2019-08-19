@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: server-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       component: server
@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
         - name: server
-          image: ittus/multi-server
+          image: ittus/multi-server:v3
           ports:
             - containerPort: 5000
           env:
-            - name: REDIS_PORT
+            - name: REDIS_HOST
               value: redis-cluster-ip-service
             - name: REDIS_PORT
               value: '6379'
