@@ -20,16 +20,7 @@ before_install:
 
 script:
   - docker run -e CI=true ittus/react-test npm run test
-# after_success:
-#   - docker build -t ittus/multi-client ./client
-#   - docker build -t ittus/multi-nginx ./nginx
-#   - docker build -t ittus/multi-server ./server
-#   - docker build -t ittus/multi-worker ./worker
-#   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-#   - docker push ittus/multi-client
-#   - docker push ittus/multi-nginx
-#   - docker push ittus/multi-server
-#   - docker push ittus/multi-worker
+
 deploy:
   provider: script
   script: bash ./deploy.sh
