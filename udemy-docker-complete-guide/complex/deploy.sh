@@ -11,5 +11,5 @@ docker push ittus/multi-worker:$SHA
 
 kubectl apply -f k8s
 kubectl set image deployments/server-deployment server=ittus/multi-server:$SHA
-kubectl set image deployments/worker-deployment server=ittus/multi-worker:$SHA
-kubectl set image deployments/client-deployment server=ittus/multi-client:$SHA
+kubectl set image deployments/worker-deployment worker=ittus/multi-worker:$SHA
+kubectl set image deployments/client-deployment client=ittus/multi-client:$SHA
